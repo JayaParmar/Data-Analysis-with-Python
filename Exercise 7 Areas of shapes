@@ -12,7 +12,7 @@ while s=="triangle" or s=="rectangle" or s=="circle":
         
     if s=="circle":
         r=float(input("Give radius of the circle:"))
-        print("The area is", pi*r**2)
+        print("The area is", 3.14*r**2)
         
     else:
         print("Unknown shape!")
