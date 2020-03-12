@@ -1,0 +1,15 @@
+def triple(x):
+    t=x*3
+    print("triple(%i)==%i" %(x,t))
+
+def square(y):
+    s=y**2
+    print("square(%i)==%i" %(y,s))
+
+for j in range(1,11):
+    if j**2 < j*3:
+        triple(j)
+        square(j)
+    else:
+        break
+    j+=1
