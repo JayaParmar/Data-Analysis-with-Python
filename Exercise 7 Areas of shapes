@@ -1,17 +1,17 @@
 s=input("Choose a shape (triangle, rectangle, circle): ")
-while s == triangle or s== rectangle or s== circle:
+while s=="triangle" or s=="rectangle" or s=="circle":
     if s=="triangle":
-        b=input("Give base of the triangle:")
-        h=input("Give height of the triangle:")
+        b=float(input("Give base of the triangle:"))
+        h=float(input("Give height of the triangle:"))
         print("The area is", 0.5*b*h)
     
     if s=="rectangle":
-        l1=input("Give width of the rectangle:")
-        l2=input("Give height of the rectangle:")
+        l1=float(input("Give width of the rectangle:"))
+        l2=float(input("Give height of the rectangle:"))
         print("The area is", l1*l2)
         
     if s=="circle":
-        r=input("Give radius of the circle:")
+        r=float(input("Give radius of the circle:"))
         print("The area is", pi*r**2)
         
     else:
