@@ -1,0 +1,9 @@
+x=[1,2,3]
+y=[20,30,40]
+z=['a','b','c']
+
+def interleave(x,y,z):
+    for t in zip(x,y,z):
+        print("{},{},{}".format(*t))
+        
+interleave(x,y,z)
