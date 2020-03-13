@@ -1,0 +1,18 @@
+def merge(x,y):
+    z=x+y
+    print(z)
+    
+L1=[11,23,5,3,2]
+L3=sorted(L1)
+
+L2=[16,73,82,9,10]
+L4=sorted(L2)
+
+L5=[99,45,57,31,2]
+L6=sorted(L5)
+
+L7=[16,37,28,90,101]
+L8=sorted(L7)
+
+merge(L3,L4)
+merge(L6,L8)
