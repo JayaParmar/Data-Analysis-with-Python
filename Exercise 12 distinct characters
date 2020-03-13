@@ -1,0 +1,8 @@
+def distinct_characters(l):
+    i=0
+    for i in range(0,len(l[i])):
+        d = {l[i]:len(set(l[i]))}       #length of "set" to get unique characters
+        print(d)
+
+t=["check", "look", "try", "pop"]       #list
+distinct_characters(t)
