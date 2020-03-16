@@ -1,0 +1,8 @@
+for a in range(1,7):
+        for b in range(1,7):
+            if a+b==5:
+                print(a,b)
+            else:
+                continue
+            b+=1
+        a+=1
