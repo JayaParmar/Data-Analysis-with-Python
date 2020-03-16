@@ -1,0 +1,4 @@
+
+  for i in range(11):
+        j=4*i
+        print("4 multiplied by", i, "is",j)
