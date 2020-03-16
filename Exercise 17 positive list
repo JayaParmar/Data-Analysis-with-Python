@@ -1,0 +1,7 @@
+def positive_list(x):
+    return x>0
+
+L=[2,-2,0,1,-7]
+
+print(list(filter(positive_list,L)))
+    
