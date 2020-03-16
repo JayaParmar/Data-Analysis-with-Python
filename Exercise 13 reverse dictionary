@@ -1,0 +1,12 @@
+def reverse_dictionary(**kwargs):
+        new_d ={}
+        for i in range(len(kwargs)):
+            for key,value in kwargs.items():
+                new_d={value[i]:key[i]} 
+                print(new_d)
+            i+=1
+            print(i)                #Q:why does this print only the first letter of the new value?
+            
+D = {"move": ['liikuttaa'], 'hide': ['piilottaa'], 'six': ['kuusi'], 'fir': ['kuusi']}
+
+reverse_dictionary(**D)
