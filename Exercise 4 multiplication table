@@ -1,0 +1,7 @@
+for j in range(0,10):
+        j=j+1
+        for i in range(1,11):
+            i=j*i
+            print('%4d'%i, end=" ")
+            i=i+1
+        print('\n')
