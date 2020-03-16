@@ -1,0 +1,8 @@
+def find_matching(li,s):
+    for i,l in enumerate(li):
+        if s in l:
+            print(i)
+            
+liste = ["sensitive", "engine", "rubbish", "comment"]
+search="en"
+find_matching(liste,search) 
