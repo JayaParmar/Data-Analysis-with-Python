@@ -1,0 +1,29 @@
+import re
+with open('listing.txt', 'r') as f:
+     
+    for i in range(46):            
+        line = f.readline()
+                
+        m = re.findall(r'\d{4,}', line)     
+        
+        n = re.findall(r'[A-Z]{1}[a-z]{2}', line)
+        
+        o = re.findall(r'[0-9]{2}\s[0-9]{2}\:[0-9]{2}', line)      
+        
+        p = re.findall(r'[a-z_]{0,}\.[a-z]{2,5}', line)
+        
+        print(f"Line {i}: {line}", end="")
+        print(m,n,o,p)
+       
+   ______________________________________________________________________________________________________________________
+    Output:
+    
+Line 0: -rwxr-xr-x 1 jttoivon hyad-all    2356 Dec 11 11:50 add_colab_link.py
+['2356'] ['Dec'] ['11 11:50'] ['add_colab_link.py']
+Line 1: -rw-r--r-- 1 jttoivon hyad-all  164519 Dec 28 17:59 basics.ipynb
+['164519'] ['Dec'] ['28 17:59'] ['basics.ipynb']
+Line 2: -rw-r--r-- 1 jttoivon hyad-all  164477 Nov  5 19:21 basics.ipynb.orig
+['164477'] ['Nov'] [] ['basics.ipynb', '.orig']
+Line 3: -rw-r--r-- 1 jttoivon hyad-all  115587 Dec 11 11:50 bayes.ipynb
+['115587'] ['Dec'] ['11 11:50'] ['bayes.ipynb']
+.........
