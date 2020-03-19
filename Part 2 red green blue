@@ -1,0 +1,32 @@
+import re
+with open('rgb.txt', 'r') as f:
+    while f.readline!="":
+    
+        line=f.readline()
+             
+        newstr=re.sub(r'\s'," ", line)
+                
+        for m in re.finditer(r"[0-9]{3}[a-zA-z\s0-9]{4,}",newstr):
+                print('%02d-%02d: %s' % (m.start(), m.end(), m.group(0)))   
+                
+    ___________________________________________________________________________________________
+           
+    Output:
+    
+00-18: 255 250 250  snow 
+00-25: 248 248 255  ghost white 
+00-24: 248 248 255  GhostWhite 
+00-25: 245 245 245  white smoke 
+00-24: 245 245 245  WhiteSmoke 
+00-23: 220 220 220  gainsboro 
+00-26: 255 250 240  floral white 
+00-25: 255 250 240  FloralWhite 
+00-22: 253 245 230  old lace 
+00-21: 253 245 230  OldLace 
+00-19: 250 240 230  linen 
+00-27: 250 235 215  antique white 
+00-26: 250 235 215  AntiqueWhite 
+00-25: 255 239 213  papaya whip 
+00-24: 255 239 213  PapayaWhip 
+00-29: 255 235 205  blanched almond 
+...................................
