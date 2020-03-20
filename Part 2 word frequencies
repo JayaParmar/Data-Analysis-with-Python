@@ -1,0 +1,46 @@
+import re
+with open('alice.txt','r') as f:
+    text=f.read()                                                   # donot use readline here
+    content=text.strip("""!"#$%&'()*,-./:;?@[]_""").split()         #remove unwanted characters first & then get words
+    all_words = re.findall(r'\b[a-zA-Z0-9]{1,}\b', str(content))    #convert list into string & get non empty words
+    frequencies = {}                      
+    
+    for word in all_words:
+        count = frequencies.get(word,0)                            #define counter.Use get function used with dictionary to parallel the counter with the word
+        frequencies[word]=count+1
+    
+    word_frequencies = frequencies.keys()
+    
+    for word in word_frequencies:                                 #show all collected words and their counts
+        print(word, frequencies[word])
+                          
+   _____________________________________________________________________________________________________
+   
+Output:
+The 64
+Project 83
+Gutenberg 83
+EBook 3
+of 306
+Alice 172
+in 215
+Wonderland 3
+by 45
+Lewis 3
+Carroll 3
+This 13
+eBook 6
+is 60
+for 64
+the 741
+use 14
+anyone 6
+anywhere 2
+at 88
+no 29
+cost 3
+and 388
+with 112
+almost 3
+-----------------------------------------------------------------------------------------------------
+   
