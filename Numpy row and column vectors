@@ -1,0 +1,40 @@
+d=np.random.randint(0, 10, (4,4))
+print(f"{d} has dim {d.ndim}, shape {d.shape}, size{d.size}, and dtype {d.dtype}:")
+
+def get_rows(a):
+    
+    splitted_rows=np.vsplit(a,4)
+    print(splitted_rows)
+    
+def get_columns(a):   
+    
+    splitted_columns=np.hsplit(a,4)
+    print(splitted_columns)
+    
+get_rows(d)
+get_columns(d)
+
+________________________________________________________________________________________________________
+Output:
+
+[[0 3 1 0]
+ [2 4 7 3]
+ [6 9 7 1]
+ [9 0 7 5]] has dim 2, shape (4, 4), size16, and dtype int32:
+ 
+[array([[0, 3, 1, 0]]), array([[2, 4, 7, 3]]), array([[6, 9, 7, 1]]), array([[9, 0, 7, 5]])]
+
+[array([[0],
+       [2],
+       [6],
+       [9]]), array([[3],
+       [4],
+       [9],
+       [0]]), array([[1],
+       [7],
+       [7],
+       [7]]), array([[0],
+       [3],
+       [1],
+       [5]])]
+​
