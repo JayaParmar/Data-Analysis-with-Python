@@ -1,0 +1,15 @@
+import numpy as np
+def multiplication_table(a):
+    b=np.arange(0,(a**2)).reshape(a,a)
+    c=a*b                                 #Scalar matrix multiplication results in matrix
+    print(c)
+
+multiplication_table(4)
+
+_____________________________________________________________________________________________________________________________
+Output:
+
+[[ 0  4  8 12]
+ [16 20 24 28]
+ [32 36 40 44]
+ [48 52 56 60]]
