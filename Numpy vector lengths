@@ -1,0 +1,19 @@
+import numpy as np
+c=np.arange(1,5).reshape(2,2)
+print(c)
+
+e=np.sqrt(np.sum(np.square(c)))     #Euclidean distance is the square of each vector element 'added'(to give a scalar) and square root of that scalar
+print(e)
+
+f=np.linalg.norm(c)                 #Euclidean distance calculated directly using norm function from linalg module.
+print(f)
+
+__________________________________________________________________________________________________________________________________
+Output:
+
+[[1 2]
+ [3 4]]
+ 
+ 5.477225575051661
+ 
+ 5.477225575051661
