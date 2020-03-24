@@ -1,0 +1,14 @@
+import numpy as np
+#from functools import reduce
+
+def matrix_power(a,n):
+     if n>0: return (a**(n))
+     else: return (np.linalg.inv(a)*n)   
+
+    
+np.random.seed(0)
+b=np.random.randint(0,10, (3,3))
+print(b)
+m=int(input("How many times should I multiply the matrix?"))
+ans=matrix_power(b,m)
+print("The matrix product is:", ans)
