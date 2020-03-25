@@ -1,0 +1,33 @@
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+def load():
+    df=pd.read_csv('iris.csv').drop('species',axis=1).values
+    #print(df)
+    return (df[:,0],df[:,2],df[:,1],df[:,3])
+    
+def lengths(a,b):
+    r=stats.pearsonr(a, b)                        #length comparision. Positive correlations imply that as a increases, so does b.
+    print(r)
+
+def correlations(a,b,x,y):
+    c=np.corrcoef(a,b,rowvar=False)               #length comparision
+    z=np.corrcoef(x,y,rowvar=False)               #width comparision. See output -0.36612593 which indicates as sepal width increases, petal width decreases  
+    print(c)
+    print(z)
+    
+sepal_length,petal_length,sepal_width,petal_width=load()
+lengths(sepal_length,petal_length)
+correlations(sepal_length,petal_length,sepal_width,petal_width)
+
+_________________________________________________________________________________________________________________________________
+Output:
+
+(0.8717537758865832, 1.0386674194497525e-47)
+
+[[1.         0.87175378]
+ [0.87175378 1.        ]]
+ 
+[[ 1.         -0.36612593]
+ [-0.36612593  1.        ]]
