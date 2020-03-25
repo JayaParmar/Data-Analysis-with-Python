@@ -12,7 +12,8 @@ def main():
     b2=np.random.randint(10,size=(4,1))
     
     meeting_lines(a1,b1,a2,b2)          
-    np.allclose(np.dot(a1, x1), b1)
+    print(np.allclose(np.dot(a1, x1), b1))      #Check that the solution is correct
+
 main()
 
 _____________________________________________________________________________________________________________________________
@@ -27,3 +28,5 @@ Output:
  [ 0.33893268]
  [-0.63974674]
  [ 0.04755136]]
+
+False
