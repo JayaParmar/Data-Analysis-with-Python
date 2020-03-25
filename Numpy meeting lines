@@ -1,13 +1,18 @@
 def main():
     import numpy as np
 
-    def meeting_lines():
-        a1=np.arange(16).reshape(4,4)    #a1 must be square and of full-rank, if either is not true, use lstsq for the least-squares best “solution” of the system/equation. 
-        b1=np.arange(4).reshape(4,1)
-        print(np.linalg.solve(a1,b1))    #Gives values of x in the 4 dimensional matrix
+    def meeting_lines(a1,b1,a2,b2):
+        print(np.linalg.solve(a1,b1))    #Gives a 4x1 x1 for a 4X4 a1 matrix
+        print(np.linalg.solve(a1,b1))
+        
+    a1=np.arange(16).reshape(4,4)    #a1 must be square and of full-rank. If not true, use lstsq for the least-squares best “solution” of the system/equation. 
+    b1=np.arange(4).reshape(4,1)
     
-    meeting_lines()          
-
+    a2=np.random.randint(20,size=(4,4))
+    b2=np.random.randint(10,size=(4,1))
+    
+    meeting_lines(a1,b1,a2,b2)          
+    np.allclose(np.dot(a1, x1), b1)
 main()
 
 _____________________________________________________________________________________________________________________________
@@ -17,3 +22,8 @@ Output:
  [ 0.35 ]
  [-0.025]
  [-0.1  ]]
+
+[[ 0.49063186]
+ [ 0.33893268]
+ [-0.63974674]
+ [ 0.04755136]]
