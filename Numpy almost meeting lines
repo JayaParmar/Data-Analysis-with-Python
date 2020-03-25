@@ -1,0 +1,30 @@
+def main():
+    import numpy as np
+    import random
+
+    def almost_meeting_lines(a1,b1,a2,b2):
+        
+        print(np.linalg.lstsq(a1,b1))         #using lstsq since solve didnot give the correct solution
+        print(np.linalg.lstsq(a2,b2))
+                
+    a1=np.arange(16).reshape(4,4)    
+    b1=np.arange(4).reshape(4,1)
+    
+    a2=np.random.randint(20,size=(4,4))
+    b2=np.random.randint(10,size=(4,1))
+      
+    almost_meeting_lines(a1,b1,a2,b2)
+
+main()
+
+___________________________________________________________________________________________________________________________________
+Output:
+(array([[ 0.175],
+       [ 0.1  ],
+       [ 0.025],
+       [-0.05 ]]), array([], dtype=float64), 2, array([3.51399637e+01, 2.27661021e+00, 8.80118491e-16, 4.41188001e-17]))
+       
+(array([[ 1.4341637 ],
+       [-3.8683274 ],
+       [ 0.82562278],
+       [ 0.26690391]]), array([], dtype=float64), 4, array([43.85821884,  7.17364368,  3.41123496,  1.83274454]))
