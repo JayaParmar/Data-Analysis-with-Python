@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+def center(image):
+    height, width = image.shape[:2]
+    m=np.linspace(0,1, width).reshape(1,width,1)
+    n=np.linspace(0,1, height).reshape(height,1,1)
+    result = image*m*n        # note that we rely on broadcasting here
+    return result
+
+picture=("painting.png")
+
+modified=center(painting)
+print(modified.shape)
+plt.imshow(modified);
+
+_______________________________________________________________________________________________
+Output:
