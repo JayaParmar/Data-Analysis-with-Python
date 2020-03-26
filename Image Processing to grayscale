@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+                                         
+def to_grayscale(picture):
+    image=np.array(Image.open(picture).convert("L"))     #L=lightness parameter
+    plt.gray()                                           #plots the image in grayscale
+    plt.imshow(image)                                    #R=0.2126, G=0.7152, B=0.0722?
+
+picture=("painting.png")
+   
+to_grayscale(picture)
+
+___________________________________________________________________________________________________
+Output
