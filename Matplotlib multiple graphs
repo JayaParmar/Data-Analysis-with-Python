@@ -8,5 +8,10 @@ plt.xlabel("x-axis")       # Give a label to the x-axis
 plt.ylabel("y-axis")
 plt.show()
 
+______________________________________________________________________________________
+Output:
+
+https://github.com/JayaParmar/Data-Analysis-with-Python/blob/master/Multiple%20graphs.PNG
+
 
   
