@@ -4,11 +4,25 @@ def to_grayscale(picture):
     image=np.array(Image.open(picture).convert("L"))     #L=lightness parameter
     plt.gray()                                           #plots the image in grayscale
     plt.imshow(image)                                    #R=0.2126, G=0.7152, B=0.0722?
+    
+def to_red(picture):
+    image=np.array(Image.open(picture).convert("L"))  
+    plt.imshow(image, cmap='Reds', alpha=0.5)      
+
+def to_green(picture):    
+    image=np.array(Image.open(picture).convert("L"))  
+    plt.imshow(image, cmap='Greens', alpha=1) 
+    
+def to_blue(picture):
+    image=np.array(Image.open(picture).convert("L"))  
+    plt.imshow(image, cmap='Blues', alpha=0.5) 
 
 picture=("painting.png")
    
 to_grayscale(picture)
-
+to_red(picture)
+to_green(picture)
+to_blue(picture)
 ___________________________________________________________________________________________________
 Output
 
