@@ -1,0 +1,25 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def subfigures(a):
+    plt.figure(figsize=(2,2))
+    
+    plt.subplot(221)
+    plt.plot(a[:,0],a[:,1],c='g',linewidth=5.0)
+        
+    plt.subplot(222)
+    plt.scatter(a[:,0],a[:,1],c='y',s=50)
+    
+    plt.suptitle('2x2 array subplots')
+    plt.show()
+    
+a=np.random.randint(35,size=(2,2))
+print(a)
+
+subfigures(a)
+
+_________________________________________________________________________________________________________
+Output:
+[[ 6 31]
+ [18 27]]
+
