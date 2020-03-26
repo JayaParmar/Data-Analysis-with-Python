@@ -1,0 +1,12 @@
+import matplotlib.pyplot as plt
+
+plt.plot([2, 4, 6, 7], [4, 3, 5, 1])
+plt.plot([1, 2, 3, 4], [4, 2, 3, 1])
+
+plt.title("title")         # Add a title to the figure
+plt.xlabel("x-axis")       # Give a label to the x-axis
+plt.ylabel("y-axis")
+plt.show()
+
+
+  
