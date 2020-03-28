@@ -1,0 +1,25 @@
+import pandas as pd
+def create_series(sl1,sl2):
+    s1=pd.Series(sl1, index=["a","b","c"])
+    s2=pd.Series(sl2, index=["a","b","c"])
+    return s1,s2
+    
+def modify_series(s1,s2):
+    s1 = s1.append(pd.Series(5, index=["d"]))
+    s2 = s2.drop(index=["b"])
+    return s1,s2
+
+ser1=[1,2,3]
+ser2=[4,5,6]
+ce1,ce2=create_series(ser1,ser2)    
+me1,me2=modify_series(ce1,ce2)
+
+me1.add(me2, fill_value=0)
+
+________________________________________________________________________________________
+Output:
+a    5.0
+b    2.0
+c    9.0
+d    5.0
+dtype: float64
