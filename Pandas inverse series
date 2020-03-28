@@ -1,0 +1,22 @@
+import pandas as pd
+def inverse_series(s1):
+    s1=pd.Series(s1.index.values, index=s1)
+    print("Inverted series:\n",s1)
+    
+ser1=pd.Series([1,2,3], index=["a","b","c"])
+print("Original series:\n",ser1)
+inverse_series(ser1)    
+
+________________________________________________________________________________
+Output:
+Original series:
+a    1
+b    2
+c    3
+dtype: int64
+
+Inverted series:
+1    a
+2    b
+3    c
+dtype: object
