@@ -1,0 +1,16 @@
+import pandas as pd
+df=pd.read_csv("municipal.tsv",sep='\t')
+print(df.shape)
+print(df.columns)
+
+______________________________________________________________
+Output:
+
+(490, 7)
+Index(['Region 2018', 'Population',
+       'Population change from the previous year, %',
+       'Share of Swedish-speakers of the population, %',
+       'Share of foreign citizens of the population, %',
+       'Proportion of the unemployed among the labour force, %',
+       'Proportion of pensioners of the population, %'],
+      dtype='object')
