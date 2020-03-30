@@ -1,0 +1,27 @@
+import pandas as pd
+def power_of_series(d,n):
+    df1=d.pow(n-1)
+    df2=d.pow(n)
+    print(d,df1,df2)
+
+s = pd.Series([1,2,3,4], index=list("abcd"))
+
+power_of_series(s,3)
+__________________________________________________________________________________
+Output
+
+a    1
+b    2
+c    3
+d    4
+dtype: int64 
+a     1
+b     4
+c     9
+d    16
+dtype: int64 
+a     1
+b     8
+c    27
+d    64
+dtype: int64
