@@ -1,0 +1,15 @@
+import pandas as pd
+def cities():
+    df=pd.DataFrame([[643272,715.48],[279044,528.03],[231853,689.59],[223027,240.35],[201810,3817.52]], columns=["Population","Total Area"],index=["Helsinki","Espoo","Tampere","Vantaa","Oulu"])
+    print(df)
+
+cities()
+___________________________________________________________________________________________________________________
+Output:
+
+          Population  Total Area
+Helsinki      643272      715.48
+Espoo         279044      528.03
+Tampere       231853      689.59
+Vantaa        223027      240.35
+Oulu          201810     3817.52
