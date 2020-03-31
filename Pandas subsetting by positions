@@ -1,0 +1,27 @@
+import pandas as pd
+
+def subsetting_by_positions():
+    df=pd.read_csv('UK-top40-1964-1-2.tsv',sep='\t')
+    print(df.columns)
+    df1=df.iloc[0:10,[0,2,3]]
+    return df1
+    
+data=subsetting_by_positions()
+print(data)    
+
+_________________________________________________________________________________________________________________
+Output:
+
+Index(['Pos', 'LW', 'Title', 'Artist', 'Publisher', 'Peak Pos', 'WoC'], dtype='object')
+
+   Pos                         Title                    Artist
+0    1      I WANT TO HOLD YOUR HAND               THE BEATLES
+1    2                 GLAD ALL OVER       THE DAVE CLARK FIVE
+2    3                 SHE LOVES YOU               THE BEATLES
+3    4          YOU WERE MADE FOR ME  FREDDIE AND THE DREAMERS
+4    5  TWENTY FOUR HOURS FROM TULSA               GENE PITNEY
+5    6    I ONLY WANT TO BE WITH YOU         DUSTY SPRINGFIELD
+6    7                     DOMINIQUE           THE SINGING NUN
+7    8                   MARIA ELENA      LOS INDIOS TABAJARAS
+8    9                   SECRET LOVE               KATHY KIRBY
+9   10             DON'T TALK TO HIM             CLIFF RICHARD
