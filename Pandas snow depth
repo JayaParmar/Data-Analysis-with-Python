@@ -1,0 +1,21 @@
+import pandas as pd
+
+def snow_depth():
+    df=pd.read_csv('kumpula-weather-2017.csv')
+    df.columns = [e.replace(" ", "") for e in df.columns]
+    df.columns = [a.replace("(","") for a in df.columns]
+    df.columns = [b.replace(")","") for b in df.columns]
+    print(df.columns)
+    return df.Snowdepthcm.max()
+
+sd = snow_depth()
+print("Max snow depth:", sd)
+
+__________________________________________________________________________________________
+Output:
+
+Index(['Year', 'm', 'd', 'Time', 'Timezone', 'Precipitationamountmm',
+       'Snowdepthcm', 'AirtemperaturedegC'],
+      dtype='object')
+      
+Max snow depth: 15.0
