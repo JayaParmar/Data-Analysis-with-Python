@@ -1,0 +1,44 @@
+import pandas as pd
+
+def subsetting_with_loc():
+    df=pd.read_csv('municipal.tsv',sep='\t')
+    df.columns=[e.replace(',','') for e in df.columns]
+    df.columns=[c.replace(' ','') for c in df.columns]
+    df.columns=[a.replace('-','') for a in df.columns]
+    
+    df.set_index("Region2018",inplace=True)
+    print(df.loc["Akaa":"Äänekoski",["Population","ShareofSwedishspeakersofthepopulation%","Shareofforeigncitizensofthepopulation%"]])
+          
+subsetting_with_loc()
+
+__________________________________________________________________________________________________________________________________
+Output:
+           Population  ShareofSwedishspeakersofthepopulation%  \
+Region2018                                                       
+Akaa             16769                                     0.2   
+Alajärvi          9831                                     0.1   
+Alavieska         2610                                     0.2   
+Alavus           11713                                     0.1   
+Asikkala          8248                                     0.2   
+...                ...                                     ...   
+Ylivieska        15251                                     0.3   
+Ylöjärvi         32878                                     0.3   
+Ypäjä             2372                                     0.7   
+Ähtäri            5906                                     0.1   
+Äänekoski        19144                                     0.1   
+
+            Shareofforeigncitizensofthepopulation%  
+Region2018                                          
+Akaa                                           1.6  
+Alajärvi                                       1.9  
+Alavieska                                      0.6  
+Alavus                                         1.1  
+Asikkala                                       1.6  
+...                                            ...  
+Ylivieska                                      1.2  
+Ylöjärvi                                       1.2  
+Ypäjä                                          1.9  
+Ähtäri                                         0.9  
+Äänekoski                                      1.2  
+
+[311 rows x 3 columns]
