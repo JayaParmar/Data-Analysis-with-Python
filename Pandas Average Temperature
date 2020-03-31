@@ -1,0 +1,20 @@
+import pandas as pd
+
+def average_temperature():
+    df=pd.read_csv('kumpula-weather-2017.csv')
+    df.columns = [e.replace(" ", "") for e in df.columns]
+    df.columns = [a.replace("(","") for a in df.columns]
+    df.columns = [b.replace(")","") for b in df.columns]
+    #print(df.columns)
+    df.set_index("m", inplace=True)
+    df1=df.loc[7,["AirtemperaturedegC"]]
+    return df1.mean()
+
+at=average_temperature()
+print("Average Temperature in July:", at)
+
+__________________________________________________________________________________________________________________________
+Output:
+
+Average Temperature in July: AirtemperaturedegC    16.035484
+dtype: float64
