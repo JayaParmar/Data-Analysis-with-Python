@@ -1,0 +1,18 @@
+import pandas as pd
+
+def below_zero():
+    df=pd.read_csv('kumpula-weather-2017.csv')
+    df.columns = [e.replace(" ", "") for e in df.columns]
+    df.columns = [a.replace("(","") for a in df.columns]
+    df.columns = [b.replace(")","") for b in df.columns]
+    df1=df.loc[df["AirtemperaturedegC"] < 0, ["d"]]     #Note: entire row is selected hence no index setting(df.set_index) for the row
+    return df1.count()
+
+bz=below_zero()
+print("Number of days below zero:", bz)
+
+______________________________________________________________________________________
+Output:
+
+Number of days below zero: d    49
+dtype: int64
