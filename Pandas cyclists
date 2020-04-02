@@ -1,0 +1,10 @@
+import pandas as pd
+
+def cyclists():
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    print(df.shape)
+    print(df.columns)
+    print(df.dropna(axis=0))
+    print(df.dropna(axis=1))
+    
+cyclists()
