@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+
+def special_missing_values():
+    UK=pd.read_csv('UK-top40-1964-1-2.tsv',sep='\t')
+    
+    replace_values = {"New":0, "Re":0}
+    UK=UK.replace({"LW": replace_values})
+    
+    UK["LW"] = UK["LW"].astype(str).astype(int)
+    print(UK.dtypes)
+    
+    print(UK.head)   
+    UK["compare"]=np.where((UK["Pos"] < UK["LW"]), UK["Title"] , np.nan)
+    print(UK["compare"])
+   
+def main():
+    special_missing_values()
+   
+if __name__ == "__main__":
+    main()
+
+_________________________________________________________________________________________________________________________________________
+Output:
+Pos           int64
+LW            int32
+Title        object
+Artist       object
+Publisher    object
+Peak Pos      int64
+WoC           int64
+
+     Pos  LW                                 Title  
+0     1   1              I WANT TO HOLD YOUR HAND   
+1     2   6                         GLAD ALL OVER   
+2     3   2                         SHE LOVES YOU   
+3     4   3                  YOU WERE MADE FOR ME   
+4     5   9          TWENTY FOUR HOURS FROM TULSA   
+5     6   5            I ONLY WANT TO BE WITH YOU   
+6     7   7                             DOMINIQUE   
+7     8  10                           MARIA ELENA   
+8     9   4                           SECRET LOVE   
+9    10   8                     DON'T TALK TO HIM   
+10   11  15                    SWINGING ON A STAR  
+
+0                               NaN
+1                     GLAD ALL OVER
+2                               NaN
+3                               NaN
+4      TWENTY FOUR HOURS FROM TULSA
+5                               NaN
+6                               NaN
+7                       MARIA ELENA
+8                               NaN
+9                               NaN
+10               SWINGING ON A STAR
