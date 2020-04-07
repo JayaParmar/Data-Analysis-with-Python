@@ -1,0 +1,45 @@
+import pandas as pd
+
+def split_date():
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+   
+    df1=df["Päivämäärä"]
+    f2e= df1.str.split(expand=True)
+    print(f2e.head(5))
+   
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Mon","ti":"Tue","ke":"Wed","to":"Thu","pe":"Fri","la":"Sat","su":"Sun"})
+    
+    day=pd.Series(f2e[1])
+        
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"})
+    
+    year= pd.Series(f2e[3])
+    
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_new=pd.DataFrame(frame)
+    print(df_new)
+    
+split_date()
+
+_________________________________________________________________________________________________________________________
+Output:
+   0  1      2     3      4
+0  ke  1  tammi  2014  00:00
+1  ke  1  tammi  2014  01:00
+2  ke  1  tammi  2014  02:00
+3  ke  1  tammi  2014  03:00
+4  ke  1  tammi  2014  04:00
+
+     Weekday  Day Month  Year Hour
+0       Wed    1     1  2014   00
+1       Wed    1     1  2014   01
+2       Wed    1     1  2014   02
+3       Wed    1     1  2014   03
+4       Wed    1     1  2014   04
+  
