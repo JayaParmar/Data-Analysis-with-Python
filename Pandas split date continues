@@ -1,0 +1,60 @@
+import pandas as pd
+
+def split_date_continues():
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    
+    df1=df["Päivämäärä"]
+    
+    df2= df.drop("Päivämäärä",1)      #this dataframe will later merge with the new "Päivämäärä" column 
+    
+    f2e= df1.str.split(expand=True)    
+   
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Mon","ti":"Tue","ke":"Wed","to":"Thu","pe":"Fri","la":"Sat","su":"Sun"})
+    
+    day=pd.Series(f2e[1])
+        
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"})
+    
+    year= pd.Series(f2e[3])
+    
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_english=pd.DataFrame(frame)
+    
+    df_new=pd.concat([df_english, df2], sort=False, axis=1)      #reframe the original dataframe with english dates
+    print(df_new.head(2)
+    
+split_date_continues()
+
+_____________________________________________________________________________________________________________________________
+Output:
+  Weekday Day Month  Year Hour  Auroransilta  Eteläesplanadi  \
+0     Wed   1     1  2014   00           NaN             7.0   
+1     Wed   1     1  2014   01           NaN             5.0   
+
+   Huopalahti (asema)  Kaisaniemi/Eläintarhanlahti  Kaivokatu  ...  \
+0                 NaN                          1.0        NaN  ...   
+1                 NaN                          3.0        NaN  ...   
+
+   Munkkiniemen silta eteläpuoli  Munkkiniemi silta pohjoispuoli  \
+0                            2.0                             5.0   
+1                            6.0                             5.0   
+
+   Heperian puisto/Ooppera  Pitkäsilta itäpuoli  Pitkäsilta länsipuoli  \
+0                      3.0                  NaN                   11.0   
+1                      1.0                  NaN                    8.0   
+
+   Lauttasaaren silta pohjoispuoli  Ratapihantie  Viikintie  Baana  \
+0                              NaN           NaN        NaN    8.0   
+1                              NaN           NaN        NaN    4.0   
+
+   Unnamed: 21  
+0          NaN  
+1          NaN  
+
+[2 rows x 26 columns]
