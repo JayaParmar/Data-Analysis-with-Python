@@ -1,0 +1,41 @@
+import pandas as pd
+
+def top_bands():
+    df1=pd.read_csv("bands.tsv",sep="\t")
+    df2=pd.read_csv("UK-top40-1964-1-2.tsv", sep="\t", error_bad_lines=False)      #ignore bad line error since without it there is an error
+    print(df1.columns)
+    print(df2.columns)
+       
+    df1=df1.rename(columns={'Band':'Artist'})        #rename column name to get common column in both dataframes
+    
+    result_left = pd.merge(df1,df2[['Artist','Title','Publisher']],on='Artist',how='left') 
+    print(result_left.head(2))
+
+    result_right = pd.merge(df1[['Artist','Singer','Lead guitar']], df2,on='Artist', how='right')
+    print(result_right.head(2))
+    
+top_bands()
+
+_________________________________________________________________________________________
+Output:
+
+Index(['Band', 'Singer', 'Lead guitar', 'Rhythm guitar', 'Bass', 'Drums'], dtype='object')
+Index(['Pos', 'LW', 'Title', 'Artist', 'Publisher', 'Peak Pos', 'WoC'], dtype='object')
+
+                Artist      Singer      Lead guitar Rhythm guitar  \
+0          The Beatles         All  George Harrison   John Lennon   
+1  The Dave Clark Five  Mike Smith   Lenny Davidson  Denis Payton   
+
+             Bass       Drums Title Publisher  
+0  Paul McCartney  Ringo Star   NaN       NaN  
+1     Rick Huxley  Dave Clark   NaN       NaN  
+
+
+
+Artist Singer Lead guitar  Pos LW                     Title  \
+0  THE BEATLES    NaN         NaN    1  1  I WANT TO HOLD YOUR HAND   
+1  THE BEATLES    NaN         NaN    3  2             SHE LOVES YOU   
+
+    Publisher  Peak Pos  WoC  
+0  PARLOPHONE         1    5  
+1  PARLOPHONE         1   19  
