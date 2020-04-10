@@ -1,0 +1,25 @@
+import pandas as pd
+
+def suicide_fractions():
+    df=pd.read_csv("who_suicide_statistics.csv")
+    #print(df.head(2))
+    return df.groupby("country")["population"].mean()
+    
+average =suicide_fractions()
+print(average)
+_________________________________________________________________________________________________________
+Output:
+
+country
+Albania                               2.338514e+05
+Anguilla                                       NaN
+Antigua and Barbuda                   6.115830e+03
+Argentina                             2.680716e+06
+Armenia                               2.541504e+05
+                                          ...     
+Uruguay                               2.452810e+05
+Uzbekistan                            1.692583e+06
+Venezuela (Bolivarian Republic of)    1.667603e+06
+Virgin Islands (USA)                  8.168700e+03
+Zimbabwe                                       NaN
+Name: population, Length: 141, dtype: float64
