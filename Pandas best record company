@@ -1,0 +1,30 @@
+import pandas as pd
+
+def best_record_company():
+    df=pd.read_csv("UK-top40-1964-1-2.tsv", sep='\t', error_bad_lines=False)
+    #print(df.head(2))
+    return df.groupby("Publisher")["WoC"].sum()
+    
+goodness = best_record_company()
+print(goodness)
+______________________________________________________________________________________________
+
+Output:
+
+Publisher
+COLPIX                5
+COLUMBIA             59
+CORAL                 3
+DECCA                37
+EMBER                 4
+FONTANA               5
+HMV                   9
+LONDON               23
+PARLOPHONE           50
+PHILIPS              18
+PYE                  24
+PYE INTERNATIONAL     2
+RCA                  12
+UNITED ARTISTS        5
+WARNER BROTHERS      11
+Name: WoC, dtype: int64
