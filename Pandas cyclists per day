@@ -1,0 +1,119 @@
+import pandas as pd
+#import matplotlib.pyplot as plt
+
+def split_date_continues():                 #This function is from the previous exercise
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    
+    df1=df["Päivämäärä"]
+    
+    df2= df.drop("Päivämäärä",1)      #this dataframe will later merge with the new "Päivämäärä" column 
+    
+    f2e= df1.str.split(expand=True)    
+   
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Mon","ti":"Tue","ke":"Wed","to":"Thu","pe":"Fri","la":"Sat","su":"Sun"})
+    
+    day=pd.Series(f2e[1])
+        
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"})
+    
+    year= pd.Series(f2e[3])
+    
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_english=pd.DataFrame(frame)
+    
+    df_new=pd.concat([df_english, df2], sort=False, axis=1)      #reframe the original dataframe with english dates
+    return df_new
+
+def cyclist_per_day(df_e):
+    #print(df_e.head(2))
+    yr=df_e.groupby("Year")
+    #print(yr["Kaisaniemi/Eläintarhanlahti"].sum())
+        
+    dy=df_e.groupby("Day")
+    mn=df_e.groupby("Month")
+    
+    print("Sum of group Years:")
+    for key, group in yr: 
+        print(key, len(group))
+        
+    print("\n Sum of group Months:")
+    for key, group in mn:
+        print(key, len(group))
+        
+    print("\n Sum of group Days:")
+    for key, group in dy:
+        print(key, len(group))
+        
+
+        
+def cyclist_average(d):
+    
+    #d.loc[(d.Year==2017) & (d.Month==8),"Day"]    
+    dng=(d.groupby(["Year", "Month"]).agg({"Day":"count"}))   
+    print(dng)   
+    
+df_eng=split_date_continues()
+#cyclist_per_day(df_eng)
+cyclist_average(df_eng)
+___________________________________________________________________________________________________________________________
+Output:
+
+            Day
+Year Month     
+2014 1      744
+     10     744
+     11     720
+     12     744
+     2      672
+     3      744
+     4      720
+     5      744
+     6      720
+     7      744
+     8      744
+     9      720
+2015 1      744
+     10     744
+     11     720
+     12     744
+     2      672
+     3      744
+     4      720
+     5      744
+     6      720
+     7      744
+     8      744
+     9      720
+2016 1      744
+     10     744
+     11     720
+     12     744
+     2      696
+     3      744
+     4      720
+     5      744
+     6      720
+     7      744
+     8      744
+     9      720
+2017 1      744
+     10     744
+     11     720
+     12     744
+     2      672
+     3      744
+     4      720
+     5      744
+     6      720
+     7      744
+     8      744
+     9      720
+2018 1      744
+     2      672
+     3      648
