@@ -1,0 +1,28 @@
+import pandas as pd
+
+def suicide_fractions():
+    df=pd.read_csv("who_suicide_statistics.csv")
+    #print(df.head(2))
+    return df.groupby("country")["population"].mean()
+    
+def suicide_weather(avg_pop):
+    df=pd.read_html("List_of_countries_by_average_yearly_temperature.html",header=0,index_col=0)
+    df1=pd.DataFrame(df)
+    
+    avg_popul=pd.Series(avg_pop)               
+    avg_popul=avg_popul.rename_axis("Country")
+   
+    df_new = pd.concat([df1,avg_popul],axis=1)
+   
+    print(df_new.corr(method='spearman'))
+
+    
+average =suicide_fractions()
+
+suicide_weather(average)
+
+_______________________________________________________________________________________________________
+Output:              #due to some reason temperature is not being read properly from the html leading to a correlation of average population with itself!
+
+            population
+population         1.0
