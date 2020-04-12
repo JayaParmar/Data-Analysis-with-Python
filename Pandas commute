@@ -1,0 +1,45 @@
+import pandas as pd
+import datetime
+#from matplotlib import pyplot as plt
+
+def commute():                
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    df1=df["Päivämäärä"]
+    df2= df.drop("Päivämäärä",1)      #this dataframe will later merge with the new "Päivämäärä" column 
+    f2e= df1.str.split(expand=True) 
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Monday","ti":"Tuesday","ke":"Wednesday","to":"Thursday","pe":"Friday","la":"Saturday","su":"Sunday"})
+    day=pd.Series(f2e[1])  
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"}) 
+    year= pd.Series(f2e[3])
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_english=pd.DataFrame(frame)                              #english date
+    
+    df_english["Date"] = pd.to_datetime(df_english[["Year","Month","Day","Hour"]])
+    
+    df_english = df_english.drop(columns=["Year","Month","Day","Hour","Weekday"])
+      
+    df_new=pd.concat([df_english, df2], sort=False, axis=1)      #reframe the original dataframe with english dates
+    
+    #df_newdf_new["Date"]>= '2017-08-01' & df_new["Date"]<= '2017-08-31')
+                       
+    df_new=(df_new[(df_new['Date']>pd.Timestamp(2017,8,1)) & (df_new['Date']<pd.Timestamp(2017,8,31))])   #restrict to Aug 2017 data                  
+    #print(df_new.head(2))
+    
+    df_new["Weekday"]=df_new["Date"].dt.dayofweek
+    
+    #print(df_new.head(2))
+    
+    %matplotlib inline
+    df_new.plot(kind='line', x='Date',y="Kuusisaarentie")   #choose to plot whichever column you wish by replacing y value
+    #plt.show()
+    
+commute()
+____________________________________________________________________________________________________________________________________
+Output:
+
