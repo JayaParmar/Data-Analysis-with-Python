@@ -1,0 +1,84 @@
+import pandas as pd
+
+def bicycle_timeseries():                
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    df1=df["Päivämäärä"]
+    df2= df.drop("Päivämäärä",1)      #this dataframe will later merge with the new "Päivämäärä" column 
+    f2e= df1.str.split(expand=True) 
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Mon","ti":"Tue","ke":"Wed","to":"Thu","pe":"Fri","la":"Sat","su":"Sun"})
+    day=pd.Series(f2e[1])  
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"}) 
+    year= pd.Series(f2e[3])
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_english=pd.DataFrame(frame)                              #english date
+    
+    df_english["Date"] = pd.to_datetime(df_english[["Year","Month","Day","Hour"]])
+    
+    df_english = df_english.drop(columns=["Year","Month","Day","Hour","Weekday"])
+    
+    df_new=pd.concat([df_english, df2], sort=False, axis=1)      #reframe the original dataframe with english dates
+    
+    df_new= df_new.set_index("Date")
+    print(df_new.head(2))
+    
+bicycle_timeseries()
+_______________________________________________________________________________________________________________________________
+Output:
+
+                     Auroransilta  Eteläesplanadi  Huopalahti (asema)  \
+Date                                                                    
+2014-01-01 00:00:00           NaN             7.0                 NaN   
+2014-01-01 01:00:00           NaN             5.0                 NaN   
+
+                     Kaisaniemi/Eläintarhanlahti  Kaivokatu  \
+Date                                                          
+2014-01-01 00:00:00                          1.0        NaN   
+2014-01-01 01:00:00                          3.0        NaN   
+
+                     Kulosaaren silta et.  Kulosaaren silta po.   \
+Date                                                               
+2014-01-01 00:00:00                   NaN                    NaN   
+2014-01-01 01:00:00                   NaN                    NaN   
+
+                     Kuusisaarentie  Käpylä, Pohjoisbaana  \
+Date                                                        
+2014-01-01 00:00:00             NaN                   NaN   
+2014-01-01 01:00:00             NaN                   NaN   
+
+                     Lauttasaaren silta eteläpuoli  ...  \
+Date                                                ...   
+2014-01-01 00:00:00                            NaN  ...   
+2014-01-01 01:00:00                            NaN  ...   
+
+                     Munkkiniemen silta eteläpuoli  \
+Date                                                 
+2014-01-01 00:00:00                            2.0   
+2014-01-01 01:00:00                            6.0   
+
+                     Munkkiniemi silta pohjoispuoli  Heperian puisto/Ooppera  \
+Date                                                                           
+2014-01-01 00:00:00                             5.0                      3.0   
+2014-01-01 01:00:00                             5.0                      1.0   
+
+                     Pitkäsilta itäpuoli  Pitkäsilta länsipuoli  \
+Date                                                              
+2014-01-01 00:00:00                  NaN                   11.0   
+2014-01-01 01:00:00                  NaN                    8.0   
+
+                     Lauttasaaren silta pohjoispuoli  Ratapihantie  Viikintie  \
+Date                                                                            
+2014-01-01 00:00:00                              NaN           NaN        NaN   
+2014-01-01 01:00:00                              NaN           NaN        NaN   
+
+                     Baana  Unnamed: 21  
+Date                                     
+2014-01-01 00:00:00    8.0          NaN  
+2014-01-01 01:00:00    4.0          NaN  
+
+[2 rows x 21 columns]
