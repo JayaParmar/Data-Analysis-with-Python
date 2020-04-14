@@ -1,0 +1,37 @@
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from matplotlib import pyplot as plt
+
+np.random.seed(0)
+n=20
+x=np.linspace(0,10,n)                                         #x has one row and 20 columns
+#print(x)
+y=x*2+1+1*np.random.randn(n)
+#print(y)
+
+model=LinearRegression(fit_intercept=True)
+model.fit(x[:,np.newaxis],y)
+
+xfit=np.linspace(0,10,100)
+yfit=model.predict(xfit[:,np.newaxis])
+
+a=model.coef_
+print("Slope:",a)
+
+b=model.intercept_
+print("Intercept:",b)
+
+print("Coefficient of determination:",r2_score(y,model.predict(x[:,np.newaxis])))
+
+
+plt.plot(xfit,yfit,color="black")
+plt.plot(x,y,'o')
+plt.plot(np.vstack([x,x]),np.vstack([y,model.predict(x[:,np.newaxis])]),color='red'); # This draws as many line segments as there are columns in matrices x and y
+_____________________________________________________________________________________________________________________________________
+Output:
+Slope: [1.88627741]
+Intercept: 2.1379475205341283
+Coefficient of determination: 0.9819119045690106
+
+
