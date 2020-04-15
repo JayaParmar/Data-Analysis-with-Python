@@ -1,0 +1,70 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from matplotlib import pyplot as plt
+
+def mystery_data():
+    df=pd.read_csv("mystery_data.tsv",sep='\t')
+    print(df.columns)
+
+    x1=df["X1"]
+    x2=df['X2']
+    x3=df['X3']
+    x4=df['X4']
+    x5=df['X5']
+    y=df['Y']
+
+    model=LinearRegression(fit_intercept=False)
+    model.fit(np.vstack([x1,x2,x3,x4,x5]).T, y)
+    xfit=np.linspace(-50,150, 1000)
+    yfit=model.predict(np.vstack([x1,x2,x3,x4,x5]).T)
+    plt.plot(xfit,yfit)
+    plt.plot(x1,x2,x3,x4,x5,y,'o')
+    
+    model1=LinearRegression(fit_intercept=False)
+    model1.fit(np.vstack([x1]).T, y)
+    x1fit=np.linspace(-50,150, 1000)
+    y1fit=model1.predict(np.vstack([x1]).T)
+    plt.plot(x1fit,y1fit)
+    
+    model2=LinearRegression(fit_intercept=False)
+    model2.fit(np.vstack([x2]).T, y)
+    x2fit=np.linspace(-50,150, 1000)
+    y2fit=model2.predict(np.vstack([x2]).T)
+    plt.plot(x2fit,y2fit)
+    
+    model3=LinearRegression(fit_intercept=False)
+    model3.fit(np.vstack([x3]).T, y)
+    x3fit=np.linspace(-50,150, 1000)
+    y3fit=model3.predict(np.vstack([x3]).T)
+    plt.plot(x3fit,y3fit)
+    
+    model4=LinearRegression(fit_intercept=False)
+    model4.fit(np.vstack([x4]).T, y)
+    x4fit=np.linspace(-50,150, 1000)
+    y4fit=model4.predict(np.vstack([x4]).T)
+    plt.plot(x4fit,y4fit)
+    
+    model5=LinearRegression(fit_intercept=False)
+    model5.fit(np.vstack([x4]).T, y)
+    x5fit=np.linspace(-50,150, 1000)
+    y5fit=model5.predict(np.vstack([x5]).T)
+    plt.plot(x5fit,y5fit)
+    
+    print("Coefficient of X1 is:",model1.coef_)
+    print("Coefficient of X2 is:",model2.coef_)
+    print("Coefficient of X3 is:",model3.coef_)
+    print("Coefficient of X4 is:",model4.coef_)
+    print("Coefficient of X5 is:",model5.coef_)
+    ____________________________________________________________________________________________________________________________
+Output:
+
+Index(['X1', 'X2', 'X3', 'X4', 'X5', 'Y'], dtype='object')
+Coefficient of X1 is: [-7.38608964]
+Coefficient of X2 is: [-8.5346732]
+Coefficient of X3 is: [-6.52875602]
+Coefficient of X4 is: [-7.98876549]
+Coefficient of X5 is: [-7.98876549]
+
+
+   
