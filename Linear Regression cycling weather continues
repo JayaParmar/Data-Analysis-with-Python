@@ -1,0 +1,85 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+from matplotlib import pyplot as plt
+from sklearn.model_selection import train_test_split
+
+def split_date_continues():                 #This function is from the previous exercise
+    df=pd.read_csv("Helsingin_pyorailijamaarat.csv", sep=";")
+    
+    df1=df["Päivämäärä"]
+    
+    df2= df.drop("Päivämäärä",1)      #this dataframe will later merge with the new "Päivämäärä" column 
+    
+    f2e= df1.str.split(expand=True)    
+   
+    weekday=pd.Series(f2e[0])
+    W=weekday.map({"ma":"Mon","ti":"Tue","ke":"Wed","to":"Thu","pe":"Fri","la":"Sat","su":"Sun"})
+    
+    day=pd.Series(f2e[1])
+        
+    month=pd.Series(f2e[2])
+    M=month.map({"tammi":"1","helmi":"2","maalis":"3","huhti":"4","touko":"5","kesä":"6","heinä":"7","elo":"8","syys":"9","loka":"10","marras":"11","joulu":"12"})
+    
+    year= pd.Series(f2e[3])
+    
+    time=f2e[4].str.split(pat=":",expand=True)
+    Hour = time[0]
+    hour=pd.Series(Hour)
+    
+    frame={'Weekday': W, 'Day': day, 'Month':M, 'Year':year, 'Hour': hour}
+    df_english=pd.DataFrame(frame)
+    
+    df_new=pd.concat([df_english, df2], sort=False, axis=1)      #reframe the original dataframe with english dates
+    return df_new
+    
+
+def cycling_weather(df_engelsk):   #drop the unwanted columns in two dataframes before merging them
+    df3=pd.read_csv("kumpula-weather-2017.csv")
+    df3=df3.drop(["m","d","Time","Time zone"],axis=1)
+       
+    df_engelsk=df_engelsk.drop(['Weekday','Hour'],axis=1)   #drop the columns that are not station name
+    df_engelsk= df_engelsk.groupby(['Year','Month','Day']).sum()  # we sum values per day because after merge we donot want Day and Month column
+   
+    dfm=pd.concat([df3,df_engelsk],sort=False)
+    dfm=dfm.fillna(0)
+    return dfm   
+    
+def cycling_weather_continues(df_ws): #Use linear regression between weather_stations & Precipitation, Snow depth & Air Temperature
+     
+    df_ws.rename(columns={'Precipitation amount (mm)':'Precipitationamount','Snow depth (cm)':'Snowdepth','Air temperature (degC)':'Airtemperature'},inplace= True)
+    
+    X1=df_ws[['Precipitationamount']]
+    X2=df_ws[['Snowdepth']]
+    X3=df_ws[['Airtemperature']]
+    y1=df_ws['Auroransilta']
+    
+    print("Measuring Station 'Auroransilta'")
+    
+    model_P=LinearRegression(fit_intercept=True)
+    model_P.fit(X1, y1)
+    y1fit=model_P.predict(X1)
+    print("Regression coefficient for variable 'precipitation':", model_P.coef_)
+    
+    model_S=LinearRegression(fit_intercept=True)
+    model_S.fit(X2, y1)
+    y1fit=model_S.predict(X2)
+    print("Regression coefficient for variable 'snow depth':", model_S.coef_)
+    
+    model_T=LinearRegression(fit_intercept=True)
+    model_T.fit(X3, y1)
+    y1fit=model_T.predict(X2)
+    print("Regression coefficient for variable 'temperature':", model_T.coef_)
+    
+df_eng=split_date_continues()
+          
+df_merged=cycling_weather(df_eng)
+
+cycling_weather_continues(df_merged)
+_________________________________________________________________________________________________________________________________
+Ouput:
+Measuring Station 'Auroransilta'
+Regression coefficient for variable 'precipitation': [-2.12209885]
+Regression coefficient for variable 'snow depth': [-1.91305214]
+Regression coefficient for variable 'temperature': [-2.18595322]
