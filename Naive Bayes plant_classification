@@ -1,0 +1,34 @@
+from sklearn.datasets import load_iris
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+def plant_classification():   
+    iris=load_iris()
+    X = iris.data[:, 0:3]  # we take the first three features 
+    y = iris.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)  
+    
+    model = GaussianNB()
+    model.fit(X_train, y_train)
+    
+    print("Means:", model.theta_)
+    print("Standard deviations:", model.sigma_)
+    
+    y_fitted = model.predict(X_test)
+    
+    acc=accuracy_score(y_test,y_fitted)
+    print("Accuracy score is", acc)
+    
+plant_classification()
+____________________________________________________________________________________________________________________________________
+Output:
+Means: [[4.9972973  3.38918919 1.45405405]
+ [5.91764706 2.75882353 4.19117647]
+ [6.66341463 2.9902439  5.58292683]]
+ 
+Standard deviations: [[0.12242513 0.14474799 0.01978087]
+ [0.2649827  0.11124568 0.22139274]
+ [0.4071981  0.11453897 0.30483046]]
+ 
+Accuracy score is 0.868421052631579
