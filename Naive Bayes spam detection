@@ -1,0 +1,41 @@
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
+import gzip
+import pandas as pd
+
+def spam_detection():
+    with gzip.open('ham.txt.gz') as f:
+        ham_content = pd.read_csv(f,sep="\n",error_bad_lines=False)
+        ham_content.insert(0, 'label','ham',allow_duplicates=True)
+                
+    with gzip.open('spam.txt.gz') as f:
+        spam_content = pd.read_csv(f,sep="\n",error_bad_lines=False)
+        spam_content.insert(0, 'label','spam',allow_duplicates=True)
+           
+    df= spam_content.append(ham_content, sort=False)
+       
+    df['label']=df.label.map({'ham':0,'spam':1})
+        
+    X_train, X_test, y_train, y_test = train_test_split(df.loc[:,df.columns!='label'], df['label'], test_size=0.25, random_state=1) 
+    print('Number of rows in the total set:{}'.format(df.shape[0]))
+    print('Number of rows in the training set:{}'.format(X_train.shape[0]))
+    print('Number of rows in the test set:{}'.format(X_test.shape[0]))
+   
+    
+    model = make_pipeline(CountVectorizer(), MultinomialNB())
+    model.fit(X_train, y_train)
+    labels_fitted = model.predict(X_test)
+    print("Accuracy score is", accuracy_score(labels_fitted, y_test))
+    
+    
+spam_detection()
+__________________________________________________________________________________________________________________________________
+Output:
+Number of rows in the total set:2998
+Number of rows in the training set:2248
+Number of rows in the test set:750
+
+ValueError: Found input variables with inconsistent numbers of samples: [2, 2248]
