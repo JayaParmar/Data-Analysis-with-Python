@@ -1,0 +1,40 @@
+from sklearn.datasets import make_blobs
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+def blob_classification():    
+    X,y = make_blobs(100, 2, centers=2, random_state=2, cluster_std=1.5)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0) 
+    colors=np.array(["red", "blue"])
+    plt.scatter(X_train[:, 0], X_train[:, 1], c=colors[y_train], s=50)
+    for label, c in enumerate(colors):
+        plt.scatter([], [], c=c, label=str(label))
+        plt.legend()       
+    
+    model = GaussianNB()
+    model.fit(X_train, y_train)
+    
+    print("Means:", model.theta_)
+    print("Standard deviations:", model.sigma_)
+    
+    y_fitted = model.predict(X_test)
+    colors=np.array(["green", "yellow"])
+    plt.scatter(X_test[:,0], X_test[:,1], color=colors[y_fitted])
+    plt.scatter([], [], color="green", label="0")
+    plt.scatter([], [], color="yellow", label="1")
+    
+    acc=accuracy_score(y_test,y_fitted)
+    plt.legend()
+    print("Accuracy score is", acc)
+    
+blob_classification()
+__________________________________________________________________________________________________________________________________
+Output:
+Means: [[-1.68235648 -9.45519614]
+ [ 1.33594939 -1.21188888]]
+Standard deviations: [[2.53607858 2.25926503]
+ [3.77766176 2.77244511]]
+Accuracy score is 1.0
+
