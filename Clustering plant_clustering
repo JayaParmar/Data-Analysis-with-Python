@@ -1,0 +1,40 @@
+from sklearn.cluster import KMeans
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_iris
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy
+
+def find_permutation(n_clusters, real_labels, labels):
+    permutation=[]
+    for i in range(n_clusters):
+        idx = labels == i
+        new_label=scipy.stats.mode(real_labels[idx])[0]  # Choose the most common label among data points in the cluster
+        permutation.append(new_label)
+    return permutation
+
+def plant_clustering():
+    iris = load_iris()
+    X=iris.data
+    y=iris.target
+    
+    model = KMeans(3)
+    model.fit(X)
+    print(model.cluster_centers_,'\n')
+    #plt.scatter(X[:,0], X[:,1], X[:,2], c=model.labels_)
+    permutation3 = find_permutation(10, iris.target, model.labels_)
+    print(permutation3,'\n')
+    acc = accuracy_score(iris.target, [ permutation3[label] for label in model.labels_])
+    print("Accuracy score is", acc)
+    
+plant_clustering()
+_________________________________________________________________________________________________________
+Output:
+[[5.006      3.428      1.462      0.246     ]
+ [5.9016129  2.7483871  4.39354839 1.43387097]
+ [6.85       3.07368421 5.74210526 2.07105263]] 
+
+[array([0]), array([1]), array([2]), array([], dtype=float64), array([], dtype=float64), array([], dtype=float64), array([], dtype=float64), array([], dtype=float64), array([], dtype=float64), array([], dtype=float64)] 
+
+Accuracy score is 0.8933333333333333
+
