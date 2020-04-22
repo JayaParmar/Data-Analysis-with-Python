@@ -1,0 +1,46 @@
+import pandas as pd
+from sklearn.cluster import DBSCAN
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+import scipy
+
+def nonconvex_clusters():
+    df=pd.read_csv('data.tsv',sep='\t') 
+    rows=[]
+    nd=pd.DataFrame(columns=['Eps','Score','Clusters','Outliers'])
+    
+    for idx in np.arange(0.05, 0.2, 0.05):
+        model=DBSCAN(eps=idx)
+        model.fit(df)
+        #plt.scatter(df['X1'], df['X2'],c=model.labels_)   
+        
+        nd['Eps']=np.arange(0.05, 0.2, 0.05)
+        nd['Clusters'] = len(set(model.labels_))- (1 if -1 in model.labels_ else 0)
+        nd['Outliers'] = list(model.labels_).count(-1)
+        nd['Score']=accuracy_score(df['y'],model.labels_)
+        print(nd[:]) 
+       
+nonconvex_clusters()
+__________________________________________________________________________
+Output:
+    Eps  Score  Clusters  Outliers
+0  0.05    0.0        12       118
+1  0.10    0.0        12       118
+2  0.15    0.0        12       118
+3  0.20    0.0        12       118
+    Eps   Score  Clusters  Outliers
+0  0.05  0.9985         2         3
+1  0.10  0.9985         2         3
+2  0.15  0.9985         2         3
+3  0.20  0.9985         2         3
+    Eps  Score  Clusters  Outliers
+0  0.05    1.0         2         0
+1  0.10    1.0         2         0
+2  0.15    1.0         2         0
+3  0.20    1.0         2         0
+    Eps  Score  Clusters  Outliers
+0  0.05    1.0         2         0
+1  0.10    1.0         2         0
+2  0.15    1.0         2         0
+3  0.20    1.0         2         0
