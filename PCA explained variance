@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import numpy as np
+
+def explained_variance():
+    df=pd.read_csv('data.tsv', sep='\t')
+    
+    pca_before=PCA()
+    pca_before.fit(df)
+    v=pca_before.explained_variance_
+    print("The variances are",v)
+    
+    
+    pca=PCA(2)
+    pca.fit(df)
+    #print("Principal axes:", pca.components_)
+    print("\n Explained variance after PCA are:", pca.explained_variance_)
+    #print("Mean:", pca.mean_)
+    Z=pca.transform(df)
+    plt.axis('equal')
+    #plt.scatter(Z[:,0], Z[:,1]);
+    plt.plot(np.arange(1,3), np.cumsum(pca.explained_variance_));
+    
+explained_variance()
+___________________________________________________________________________________________________________________________________
+Output:
+The variances are [8.07504278e+00 8.15666657e-01 5.19502066e-01 3.18491764e-31
+ 3.33510072e-32 2.03854328e-32 1.66579627e-32 1.32217299e-32
+ 4.93393229e-33 3.85777915e-33]
+
+ Explained variance after PCA are: [8.07504278 0.81566666]
+ 
+ Plot on link 
