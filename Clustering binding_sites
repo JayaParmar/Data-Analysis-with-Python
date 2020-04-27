@@ -1,0 +1,51 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import AgglomerativeClustering
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import pairwise_distances
+import numpy as np
+
+def get_features_and_labels():
+    data=pd.read_csv('data.seq',sep='\t')
+        
+    with open('data_modified.txt', 'w') as f:
+        for index,row in data.iterrows():
+            convert = toint(row['X'])
+            f.write("%s\n" % convert)
+        f.close()
+        
+    def strip_spaces(a_str_with_spaces):
+        return a_str_with_spaces.replace(' ', '')
+        
+    data_new=pd.read_csv('data_modified.txt', encoding='utf-8-sig', names=['X'],converters={'X': strip_spaces})
+    
+    return data_new['X'],data['y']
+    
+def toint(columnX):
+    
+        characters=list(columnX)
+        d2i=pd.Series(characters)
+        converted=list(d2i.map({'A':0,'C':1,'G':2,'T':3}))    
+        return converted
+              
+def cluster_euclidean(DNA, label):
+    
+    newDNA=pd.Series(DNA)
+    newDNA=newDNA.str.strip('[]').astype(int)
+    
+    newDNA=newDNA.values.reshape(-1, 1)
+    
+    ac2 = AgglomerativeClustering(n_clusters=2, affinity='euclidean',linkage='average')
+    
+    ac2.fit_predict(newDNA)
+    print(ac2.labels_)
+    
+    acc=accuracy_score(label, ac2.labels_)
+    print("Accuracy score is", acc)
+       
+dna, lbl = get_features_and_labels()
+cluster_euclidean(dna,lbl)
+__________________________________________________________________________________________________________________________________
+Output:
+[0 0 0 ... 1 1 1]
+Accuracy score is 0.5005
